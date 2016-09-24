@@ -39,27 +39,44 @@ int labirint [n + 2][n + 2] =  {{1, 1, 1, 1, 1, 1, 1},
 					  			{1, 1, 1, 1, 1, 1, 1}};
 
 
+bool marked [n+2][n+2] ;
 
 
 queue<Point *> Queue;
 
 
 //эта функиця выполняет ТОЛЬКО поиск в ширину
-int bfs() {
+void bfs() {
 
 	
 	while(!Queue.empty()) {
 		//получаем первую точку в очереди
 		Point *firstPoint = Queue.front();
 		//ищем всех соседей и добавляем в очередь
-
+		for ( int i1 = -1 ; i < n+2 ; i1++ )
+		{
+			for ( int j1 = -1 ; j < n+2 ; j1++)
+			{
+				if ( ( i - i1 ) * ( j - j1 ) == 0)
+				{
+					if ( labirint [i1][j1] == 0)
+					{
+						if ( marked [i1][j1] == 0 )
+						{
+							Queue.push(&firstPoint) ;
+						}
+					}
+				}
+			}
+		}
 		//отмечаем первую точку в массиве marked как помеченную
-		//убираем первую точку в очереди	
+		marked [i][j] = 1 ;
+		//убираем первую точку в очереди
+		Queue.pop(&firstPoint) ;;
 
 	}
 
-	printf("Ending bfs");
-	return 0;
+	
 }
 
 
@@ -93,7 +110,6 @@ queue = массив точек
 	{i:1, j:1},
 
 ]
-
 
 
 
